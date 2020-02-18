@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.training.alif.geeksfarm.marketplace.adapter.MainAdapter;
+import com.training.alif.geeksfarm.marketplace.asynctask.AsyncTaskClass;
 import com.training.alif.geeksfarm.marketplace.entity.Category;
 import com.training.alif.geeksfarm.marketplace.entity.Merchant;
 import com.training.alif.geeksfarm.marketplace.entity.Product;
@@ -35,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
         rvMarket.setAdapter(MA);
         rvMarket.setLayoutManager(new GridLayoutManager(this,2));
 
-        deserializeJSON();
-        MA.setProducts(pd);
-
+        String url = "http://192.168.6.221:81/api/products";
+        new AsyncTaskClass(MA,pd).execute(url);
     }
 
 
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    private Category setCategory(JSONObject obj){
+    public static Category setCategory(JSONObject obj){
         try {
             int id = obj.getInt("categoryId");
             String name = obj.getString("categoryName");
@@ -98,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-    private Merchant setMerch(JSONObject obj){
+    public static Merchant setMerch(JSONObject obj){
         try{
             int id = obj.getInt("merchantId");
             String name = obj.getString("merchantName");

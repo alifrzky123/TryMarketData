@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.training.alif.geeksfarm.marketplace.R;
 import com.training.alif.geeksfarm.marketplace.Detail;
 import com.training.alif.geeksfarm.marketplace.entity.Product;
@@ -24,10 +25,12 @@ import static com.training.alif.geeksfarm.marketplace.Detail.EXTRA_DATA;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
     private List<Product> listProduct;
+    private Context context;
 
     @NonNull
     @Override
     public MainAdapter.MainHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
         return new MainHolder(v);
     }
@@ -36,6 +39,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
     public void onBindViewHolder(@NonNull MainAdapter.MainHolder holder, int position) {
         if (listProduct != null) {
             holder.onBind(listProduct.get(position));
+            String baseUrl = "http://192.168.6.221:81/storage/";
+            String url = baseUrl+listProduct.get(position).getImg();
+            Glide.with(context)
+                    .load(url)
+                    .into(holder.img);
         }
     }
 

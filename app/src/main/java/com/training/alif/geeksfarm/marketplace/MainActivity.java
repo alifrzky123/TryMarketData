@@ -36,27 +36,4 @@ public class MainActivity extends AppCompatActivity {
         String url = basePoint+endPoint;
         new AsyncTaskClass(MA,pd).execute(url);
     }
-    public static Category setCategory(JSONObject obj){
-        try {
-            int id = obj.getInt("categoryId");
-            String name = obj.getString("categoryName");
-            return new Category(id, name);
-
-        }catch (JSONException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public static Merchant setMerch(JSONObject obj){
-        try{
-            int id = obj.getInt("merchantId");
-            String name = obj.getString("merchantName");
-            String slug = obj.getString("merchantSlug");
-            return new Merchant(id,name,slug);
-
-        }catch (JSONException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

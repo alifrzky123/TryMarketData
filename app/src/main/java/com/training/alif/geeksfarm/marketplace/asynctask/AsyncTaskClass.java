@@ -2,18 +2,11 @@ package com.training.alif.geeksfarm.marketplace.asynctask;
 
 
 import android.os.AsyncTask;
-import android.widget.Adapter;
-import android.widget.Toast;
 
-import com.training.alif.geeksfarm.marketplace.MainActivity;
+import com.google.gson.Gson;
 import com.training.alif.geeksfarm.marketplace.adapter.MainAdapter;
-import com.training.alif.geeksfarm.marketplace.entity.Category;
-import com.training.alif.geeksfarm.marketplace.entity.Merchant;
+import com.training.alif.geeksfarm.marketplace.entity.ListProduct;
 import com.training.alif.geeksfarm.marketplace.entity.Product;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,13 +19,10 @@ import java.net.URL;
 import java.util.List;
 
 public class AsyncTaskClass extends AsyncTask<String, Void, String>{
-
-    private WeakReference<List<Product>> products;
     private WeakReference<MainAdapter> adapter;
 
     public AsyncTaskClass (MainAdapter adapter, List<Product> products){
         this.adapter = new WeakReference<>(adapter);
-        this.products = new WeakReference<>(products);
     }
 
     @Override
@@ -73,38 +63,10 @@ public class AsyncTaskClass extends AsyncTask<String, Void, String>{
 
     @Override
     protected void onPostExecute(String s) {
-
         if(!s.equals("")){
-            try {
-
-                JSONObject dataObj = new JSONObject(s);
-                JSONArray dataArr = dataObj.getJSONArray("data");
-
-                for(int i=0; i<dataArr.length(); i++){
-
-                    JSONObject product = dataArr.getJSONObject(i);
-                    JSONObject merchant = product.getJSONObject("merchant");
-                    JSONObject category = product.getJSONObject("category");
-
-                    int id = product.getInt("productId");
-                    String name = product.getString("productName");
-                    String slug = product.getString("productSlug");
-                    int qty = product.getInt("productQty");
-                    String image = product.getString("productImage");
-
-                    Merchant _merchant = MainActivity.setMerch(merchant);
-                    Category _category = MainActivity.setCategory(category);
-
-                    Product _product = new Product(id, qty, name, slug, image, _merchant, _category);
-                    products.get().add(_product);
-                }
-
-                adapter.get().setProducts(products.get());
-
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
+                Gson gson = new Gson();
+                ListProduct listData = gson.fromJson(s,ListProduct.class);
+                adapter.get().setProducts(listData.getProducts());
         }
-
     }
 }

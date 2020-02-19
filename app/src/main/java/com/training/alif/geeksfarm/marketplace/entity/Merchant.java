@@ -3,9 +3,15 @@ package com.training.alif.geeksfarm.marketplace.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Merchant implements Parcelable {
+    @SerializedName("merchantId")
     int id;
-    String name,slug;
+    @SerializedName("merchantName")
+    String name;
+    @SerializedName("merchantSlug")
+    String slug;
 
     public int getId() {
         return id;

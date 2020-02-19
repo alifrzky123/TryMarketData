@@ -3,8 +3,12 @@ package com.training.alif.geeksfarm.marketplace.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Category implements Parcelable {
+    @SerializedName("categoryId")
     int id;
+    @SerializedName("categoryName")
     String name;
 
     public int getId() {

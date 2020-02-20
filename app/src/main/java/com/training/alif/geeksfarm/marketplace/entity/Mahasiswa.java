@@ -1,7 +1,12 @@
 package com.training.alif.geeksfarm.marketplace.entity;
 
+import com.google.gson.annotations.Expose;
+
 public class Mahasiswa {
-    private String namaDepan,namaBelakang,jurusan;
+    private String namaDepan;
+    private String namaBelakang;
+    private String jurusan;
+    @Expose
     private int umur;
 
 

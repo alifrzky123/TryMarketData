@@ -12,6 +12,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.training.alif.geeksfarm.marketplace.adapter.MainAdapter;
@@ -48,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
         String endPoint = "/api/products";
         String url = basePoint+endPoint;
 
-        JsonObjectRequest listProductReq = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        StringRequest listProductReq = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(String response) {
                 //Handle Response
                     Gson GSONData = new Gson();
-                    ListProduct lp = GSONData.fromJson(response.toString(),ListProduct.class);
+                    ListProduct lp = GSONData.fromJson(response,ListProduct.class);
                     MA.setProducts(lp.getProducts());
             }
         }, new Response.ErrorListener() {

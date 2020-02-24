@@ -27,8 +27,7 @@ import java.util.Map;
 public class NewActivity extends AppCompatActivity {
     EditText etName,etQty,etMerch,etCat;
     Button btnSend;
-    MainAdapter MA = new MainAdapter();
-    String basePoint = "http://210.210.154.65:212";//Ini merupakan method GET dalam web
+    String basePoint = "http://210.210.154.65:4444";//Ini merupakan method GET dalam web
     String endPoint = "/api/products";
     String url = basePoint+endPoint;
     RequestQueue rq;

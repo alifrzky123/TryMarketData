@@ -45,11 +45,12 @@ public class MainActivity extends AppCompatActivity {
         rvMarket.setLayoutManager(new GridLayoutManager(this,2));
         rq = Volley.newRequestQueue(getApplicationContext());
 
-        String basePoint = "http://210.210.154.65:212";//Ini merupakan method GET dalam web
+        String basePoint = "http://210.210.154.65:4444";//Ini merupakan method GET dalam web
         String endPoint = "/api/products";
         String url = basePoint+endPoint;
 
-        StringRequest listProductReq = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest listProductReq;
+        listProductReq = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //Handle Response
@@ -63,6 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Volley Error",error.getMessage());
             }
         });
-    rq.add(listProductReq);
+        rq.add(listProductReq);
     }
 }
